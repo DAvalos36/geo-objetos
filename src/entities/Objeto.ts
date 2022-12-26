@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, OneToMany } from "typeorm"
+import { Encontrado } from "./Encontrado"
 import { Usuario } from "./Usuario"
 
 @Entity()
@@ -18,4 +19,6 @@ export class Objeto extends BaseEntity {
     @ManyToOne(() => Usuario, usuario => usuario.objetosCreados)
     propietario: Usuario
     
+    @OneToMany(() => Encontrado, encontrado => encontrado.objeto)
+    encontradoEn: Encontrado[]
 }

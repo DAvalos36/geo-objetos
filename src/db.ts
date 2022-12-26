@@ -4,6 +4,8 @@ dotenv.config();
 
 //Entities
 import { Usuario } from "./entities/Usuario";
+import { Objeto } from "./entities/Objeto";
+import { Encontrado } from "./entities/Encontrado";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -14,7 +16,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: true,
-    entities: [Usuario],
+    entities: [Usuario, Objeto, Encontrado],
     subscribers: [],
     migrations: [],
 })

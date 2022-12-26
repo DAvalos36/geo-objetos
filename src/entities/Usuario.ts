@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm"
+import { Encontrado } from "./Encontrado"
 import { Objeto } from "./Objeto"
+
 @Entity()
 export class Usuario extends BaseEntity {
     @PrimaryGeneratedColumn()
@@ -21,5 +23,8 @@ export class Usuario extends BaseEntity {
 
     @OneToMany(() => Objeto, objeto => objeto.propietario)
     objetosCreados: Objeto[]
+    
+    @OneToMany(() => Objeto, objeto => objeto.propietario)
+    objetosEncontrados: Encontrado[]
 
 }
