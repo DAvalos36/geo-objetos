@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, BaseEntity } from "typeorm"
-
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm"
+import { Objeto } from "./Objeto"
 @Entity()
 export class Usuario extends BaseEntity {
     @PrimaryGeneratedColumn()
@@ -18,5 +18,8 @@ export class Usuario extends BaseEntity {
 
     @Column()
     apellidos: string
+
+    @OneToMany(() => Objeto, objeto => objeto.propietario)
+    objetosCreados: Objeto[]
 
 }
