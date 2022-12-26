@@ -19,6 +19,4 @@ export class Usuario extends BaseEntity {
     @Column()
     apellidos: string
 
-    @CreateDateColumn()
-    creadoEn: Date
 }
