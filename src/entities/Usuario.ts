@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, CreateDateColumn, UpdateDateColumn } from "typeorm"
 import { Encontrado } from "./Encontrado"
 import { Objeto } from "./Objeto"
 
@@ -20,6 +20,12 @@ export class Usuario extends BaseEntity {
 
     @Column()
     apellidos: string
+
+    @CreateDateColumn()
+    fechaCreacion: Date
+
+    @UpdateDateColumn()
+    fechaActualizacion: Date
 
     @OneToMany(() => Objeto, objeto => objeto.propietario)
     objetosCreados: Objeto[]
