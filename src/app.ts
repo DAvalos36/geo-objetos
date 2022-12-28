@@ -4,6 +4,7 @@ import cors from 'cors'
 
 //routes
 import { routerUsuarios } from './routes/usuarios.routes'
+import { routerObjetos } from './routes/objetos.routes'
 
 const app = express()
 
@@ -13,5 +14,6 @@ app.use(express.json())
 
 //routes
 app.use('/usuarios', routerUsuarios)
+app.use('/objetos', routerObjetos)
 
 export {app}
