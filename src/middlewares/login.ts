@@ -5,13 +5,13 @@ export const validarToken = (req: Request, res: Response, next: NextFunction) =>
     const token = req.headers.authorization?.split(' ')[1]
     if (token) {
         try {
-            const decoded = jwt.verify(token, process.env.JWT_TOKEN as string) 
+            const decoded = jwt.verify(token, process.env.JWT_SECRET as string) 
             // req.
             next()
         } catch (error) {
-            return res.status(401).json({ message: 'Token inválido' })
+            return res.status(401).json({ message: 'Error al validar el token', error })
         }
     } else {
-        return res.status(401).json({ message: 'Token no enviado' })
+        return res.status(401).json({ message: 'Token no encontrado' })
     } 
 }
