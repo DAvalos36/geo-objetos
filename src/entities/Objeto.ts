@@ -7,11 +7,11 @@ export class Objeto extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string
     
-    @Column()
-    latitud: string
+    @Column('decimal', { precision: 14, scale: 10})
+    latitud: number
     
-    @Column()
-    longitud: string
+    @Column('decimal', { precision: 14, scale: 10})
+    longitud: number
     
     @Column('text')
     descripcion: string
@@ -23,8 +23,11 @@ export class Objeto extends BaseEntity {
     fechaActualizacion: Date
 
     @ManyToOne(() => Usuario, usuario => usuario.objetosCreados)
-    propietario: Usuario
+    propietario: Promise<Usuario>
     
+    @Column()
+    propietarioId: string
+
     @OneToMany(() => Encontrado, encontrado => encontrado.objeto)
     encontradoEn: Encontrado[]
 }
