@@ -22,9 +22,14 @@ export class Encontrado extends BaseEntity {
     fecha: Date
     
     @ManyToOne(() => Usuario, usuario => usuario.objetosEncontrados)
-    ecnontradoPor: Usuario
+    ecnontradoPor: Promise<Usuario>
+
+    @Column()
+    encontradoPorId: string
 
     @ManyToOne(() => Objeto, objeto => objeto.encontradoEn)
-    objeto: Objeto
+    objeto: Promise<Objeto>
     
+    @Column()
+    objetoId: string
 }
