@@ -10,7 +10,7 @@ import { mostrarTodosLosObjetosCercanos, schemaCoordenadas, crearObjeto, schemaO
 const router = Router()
 
 
-router.get('/', validarToken, validarDatos(schemaCoordenadas), mostrarTodosLosObjetosCercanos )
-router.post('/', validarToken, validarDatos(schemaObjetoCrear), crearObjeto )
+router.post('/', validarToken, validarDatos(schemaCoordenadas), mostrarTodosLosObjetosCercanos )
+router.post('/nuevo', validarToken, validarDatos(schemaObjetoCrear), crearObjeto )
 
 export { router as routerObjetos }
