@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express'
 import { number, object, string } from 'yup'
-import { DataSource } from 'typeorm'
 
 import { Objeto } from '../entities/Objeto'
 
@@ -17,16 +16,23 @@ export const schemaObjetoCrear = object({
 
 export const mostrarTodosLosObjetosCercanos = async (req: Request, res: Response) => {
 
+    const { latitud, longitud } = req.body
 
-    Objeto.find({
-        // select:[
+    let objetos: Objeto[]
 
-        // ]
-        // where: {
+    try {
+        // Nota para el futuro, al utilizar el query builder desde una entidad, se deben de obviar los parametros "from" y "select
+        objetos = await Objeto.createQueryBuilder('objeto')
+        .addSelect(`6371 * acos(cos(radians(${latitud})) * cos(radians(objeto.latitud)) * cos(radians(objeto.longitud) - radians(${longitud})) + sin(radians(${latitud})) * sin(radians(objeto.latitud)))`, 'distancia')
+        .leftJoinAndSelect('objeto.propietario', 'propietario')
+        .where(`(6371 * acos(cos(radians(${latitud})) * cos(radians(objeto.latitud)) * cos(radians(objeto.longitud) - radians(${longitud})) + sin(radians(${latitud})) * sin(radians(objeto.latitud)))) <= :distanciamax`, { distanciamax: 10 })
+        .getRawMany()
+    } catch (error) {
+        return res.status(500).json({ message: 'Error al obtener objetos cercanos', error })
+    }
+    
 
-        // }
-    })
-    res.send(`<h1>${req.usuario?.usuario}</h1>`)
+    res.json({ objetos })
 }
 
 export const crearObjeto = async (req: Request, res: Response) => {
